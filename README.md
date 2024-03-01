@@ -9,9 +9,12 @@ Esse repositório contém um projeto que se trata de uma Interface por Linha de 
 Na janela do terminal digite os seguintes comandos para cada dependência
 
 **Ativar o venv**
+
 ```python -m venv venv```
 ```venv\Scripts\activate```
+
 **Instalar as dependências necessárias**
+
 - pydobot 
 ```pip install pydobot```
 - inquirer
@@ -23,15 +26,20 @@ Na janela do terminal digite os seguintes comandos para cada dependência
 - requirements.txt
 ```pip install -r requirements.txt```
 ```pip freeze > requirements.txt```
+
 **Para executar a aplicação**
 ```python src/main.py```
 
 ## Funcionalidades
 **Ligar:** Liga a sucção da ferramenta do robô.
+
 **Home:** Move o robô para a posição inicial predefinida.
+
 **Posição Atual:** Exibe a posição atual da ferramenta do robô.
+
 **Mover:** Move a ferramenta do robô em um eixo específico por uma determinada distância.
+
 **Desligar:** Desliga a sucção da ferramenta do robô.
 
 ## Vídeos de demonstração
-Para visualizar na prática, assista esse [vídeo](). 
+Para visualizar na prática, assista esse [vídeo](https://drive.google.com/drive/u/0/folders/14yj_Y2CuHBWOjCZzE41F9tNNl0MAqOBW). 
