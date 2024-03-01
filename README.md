@@ -28,7 +28,7 @@ Na janela do terminal digite os seguintes comandos para cada dependência
 ```pip freeze > requirements.txt```
 
 **Para executar a aplicação**
-```python src/main.py```
+```python src/robo.py```
 
 ## Funcionalidades
 **Ligar:** Liga a sucção da ferramenta do robô.
@@ -42,4 +42,4 @@ Na janela do terminal digite os seguintes comandos para cada dependência
 **Desligar:** Desliga a sucção da ferramenta do robô.
 
 ## Vídeos de demonstração
-Para visualizar na prática, assista esse [vídeo](https://drive.google.com/drive/u/0/folders/14yj_Y2CuHBWOjCZzE41F9tNNl0MAqOBW). 
+Para visualizar na prática, assista esse [vídeo](https://drive.google.com/file/d/1xy-nQlSTt--QaX_9QyFGXWm8VSDctYSr/view?usp=drive_link). 

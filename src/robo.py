@@ -4,19 +4,20 @@ import inquirer #for creating interactive command-line interfaces
 from yaspin import yaspin #to add progress indicators (example: spinners)
 import typer #to create command-line applications in an easier way
 
-home_point = {"x":0, "y":0, "z":0,"r":0}  #Home point of the robot arm
+home_point = {"x":0, "y":0, "z":0,"r":0}  #home point of the robot arm
 app = typer.Typer()
-spinner = yaspin(text="Em andamento...", color="blue") # Mostra um indicador de carregamento
-available_ports = list_ports.comports() # Lista as portas disponíveis
+spinner = yaspin(text="Em andamento...", color="blue") #show loading indication
+available_ports = list_ports.comports() #list of available serial ports
 
-# Pergunta ao usuário para selecionar uma porta
-porta_escolhida = inquirer.prompt([
+#user to choose a serial port
+chosen_port = inquirer.prompt([
     inquirer.List("porta", message="Escolha a porta serial", choices=[x.device for x in available_ports])
 ])["porta"]
 
-robot = pydobot.Dobot(port=porta_escolhida) #
+#initialize pydobot
+robot = pydobot.Dobot(port=chosen_port)
 
-class Robot:
+class Robot: #class to organize robot's functions
     def turn_on(self):
         robot.suck(True)
 
@@ -25,7 +26,7 @@ class Robot:
 
     def home(self):
         spinner.start()
-        robot.move_to(home_point["x"], home_point["y"], home_point["z"], home_point["r"])  # Movendo para o ponto inicial
+        robot.move_to(home_point["x"], home_point["y"], home_point["z"], home_point["r"]) 
         spinner.stop()
 
     def current(self):
@@ -33,33 +34,32 @@ class Robot:
         print(f"Posição atual: {current_position}")
 
     def mover(self, axys: str, distance: float):
-        current_position = robot.pose()  # Obtém a posição atual do robô
-        spinner.start()  # Inicia o indicador de carregamento
+        current_position = robot.pose() 
+        spinner.start()
         
         
-        # Define um dicionário que mapeia cada eixo à posição correspondente no vetor de pose do robô
+        #define a dictionary mapping each axis to its corresponding position in the robot's pose vector
         axis_mapping = {
             "x": (distance, current_position[1], current_position[2], current_position[3]),
             "y": (current_position[0], distance, current_position[2], current_position[3]),
             "z": (current_position[0], current_position[1], distance, current_position[3]),
             "r": (current_position[0], current_position[1], current_position[2], distance)
         }
-        
-        # Move o robô de acordo com o eixo especificado
+    
         robot.move_to(*axis_mapping[axys])
-        
-        spinner.stop()  # Para o indicador de carregamento
+        spinner.stop()
 
 @app.command(name="menu")
 def menu():
     robot_instance = Robot()
     options = ["Ligar", "Home", "Posição Atual", "Mover", "Desligar"]
 
-    while True:
+    while True: #prompt the user to choose an action from the menu
         chosen_action = inquirer.prompt([
             inquirer.List("action", message="Escolha uma das opções", choices=options)
         ])["action"]
 
+        #execute the chosen action
         if chosen_action == "Ligar":
             robot_instance.turn_on()
         elif chosen_action == "Home":
@@ -73,6 +73,6 @@ def menu():
         elif chosen_action == "Desligar":
             robot_instance.turn_off()
 
-# Inicia a aplicação
+#start the application
 if __name__ == "__main__":
     app()
